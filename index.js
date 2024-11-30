@@ -15,6 +15,7 @@ class Sprite {
     this.lastKey;
     this.color = color;
     this.isAttacking;
+    this.health=100;
     this.attackBox = {
       position: {
         x: this.position.x,
@@ -65,7 +66,7 @@ class Sprite {
 
 const player = new Sprite({
   position: {
-    x: 0,
+    x: 100,
     y: 0,
   },
   velocity: {
@@ -80,7 +81,7 @@ const player = new Sprite({
 
 const enemy = new Sprite({
   position: {
-    x: 400,
+    x: 800,
     y: 100,
   },
   velocity: {
@@ -151,14 +152,16 @@ function animate() {
     player.isAttacking
   ) {
     player.isAttacking = false;
-    console.log("go");
+    enemy.health -= 20;
+    document.querySelector("#enemy-health").style.width=enemy.health + "%";
   }
   if (
     rectangularCollision({ rectangle1: enemy, rectangle2: player }) &&
     enemy.isAttacking
   ) {
     enemy.isAttacking = false;
-    console.log("enemy");
+    player.health -= 20;
+    document.querySelector("#player-health").style.width = player.health + "%"
   }
 }
 
